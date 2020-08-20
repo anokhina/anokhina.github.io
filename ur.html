@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link href="tabulator/css/tabulator.min.css" rel="stylesheet">
+		<link rel='stylesheet' href='formio/formio.full.min.css'>
+		
+  <script src='formio/formio.full.min.js'></script>
+  <script src='jq/jquery-3.4.1.js'></script>
+  <style>
+
+.tabulator-header {
+    height: 0;
+}
+  </style>
+  
+	</head>
+	<body>
+	<h3>Права доступа</h3>
+
+    <div id="example-table"></div>
+		
+<script type="text/javascript" src="tabulator/js/tabulator.min.js"></script>
+						
+<script type="text/javascript">
+// http://tabulator.info/examples/4.7#tree
+
+var tableDataNested = [
+    {name: "Роль в \"Мобильном предприятии\"", value: { tp: "viewEditRadio", value: "admin", values: {"admin": "Администратор", "manager": "Менеджер", "user": "Сотрудник"} }},
+    {name: "Доступ к другим подразделениям", value: { tp: "boolean", value: true}},
+    {name: "Профиль", value: { tp: "viewEdit", value: "edit" } , _children: [
+        {name: "Пакет услуг", value: { tp: "viewEditRadio", value: "edit" }},
+        {name: "Многоканальные номера", value: { tp: "viewEditRadio", value: "edit" }},
+        {name: "Настройка маршрута", value: { tp: "boolean", value: true}}
+    ]}
+];
+
+//Групповые услуги
+{
+var gr = [];
+[
+"Голосовое меню",
+"Кол-центр",
+"Короткий номер", 
+"Группа обзвона", 
+"Конференция", 
+"АОН", 
+"Облачное хранилище", 
+"Голосовая почта", 
+"Переадресация вызовов", 
+"Одновременный вызов", 
+"Последовательный вызов", 
+"Выборочная переадрессация", 
+"Черные и белые списки", 
+"Факс", 
+"Звонок с сайта", 
+"Запись звонка", 
+"Индивидуальные пакеты \"Эксперт\"", 
+"Мелодия вызова", 
+"Группа ограничений", 
+"Группа перехвата", 
+"Доступ к приложениям для звонков", 
+"SIP-аккаунт", 
+"Дополнительный номер", 
+"Голосовые кампании", 
+"Внешние АТС", 
+"Перевод вызова", 
+"CRM-коннектор", 
+"Выборочный прием звонков", 
+"АнтиАОН", 
+"BLF", 
+"Речевая аналитика", 
+"Колл-трекинг"
+].sort().forEach(e => {
+    gr.push({name: e, value: { tp: "viewEditRadio", value: "edit" }});
+});
+tableDataNested.push({name: "Групповые услуги", value: { tp: "viewEdit", value: "off" } , _children: gr});
+}
+
+tableDataNested.push({name: "Файлы", value: { tp: "string", value: "" }, _children: [
+        //
+        {name: "Запись разговоров", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "own": "Свои", "ownDep": "Свой отдел", "deps": "Отделы"} }, _children: [
+            {name: "Просмотр", value: { tp: "boolean", value: true}},
+            {name: "Прослушивание", value: { tp: "boolean", value: true}},
+            {name: "Скачивание", value: { tp: "boolean", value: true}},
+            {name: "Комментарии", value: { tp: "boolean", value: true}},
+            {name: "Удаление", value: { tp: "boolean", value: true}},
+        ]},
+        {name: "Факсы", value: { tp: "viewEditCheck", value: ["view", "download", "comment", "delete"],  values: {"view": "Просмотр", "download": "Скачивание","comment": "Комментарии", "delete": "Удаление"}}},
+        {name: "Голосовая почта", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "own": "Свои", "ownDep": "Свой отдел", "deps": "Отделы"} }, _children: [
+            {name: "Просмотр", value: { tp: "boolean", value: true}},
+            {name: "Прослушивание", value: { tp: "boolean", value: true}},
+            {name: "Скачивание", value: { tp: "boolean", value: true}},
+            {name: "Комментарии", value: { tp: "boolean", value: true}},
+            {name: "Удаление", value: { tp: "boolean", value: true}},
+        ]},
+        {name: "Резервные копии", value: { tp: "viewEditCheck", value: ["view", "restore", "delete"],  values: {"view": "Просмотр", "delete": "Удаление", "restore": "Восстановление"}}},
+        {name: "Файлы приветствий", value: { tp: "viewEditCheck", value: ["view", "change"],  values: {"view": "Просмотр", "change": "Изменение"}}},
+]});
+
+//Статистика
+tableDataNested.push({name: "Статистика", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "ownnumber": "Свой номер", "ownDep": "Свой отдел", "deps": "Отделы"} }, _children: [
+        {name: "", value: { tp: "viewEditRadio", value: "edit",  values: {"view": "Просмотр", "edit": "Скачать" }}},
+]});
+
+//Настройки
+{
+var gr = [];
+[
+"Расписание",
+"Профиль",
+"Облачное хранилище",
+"API",
+"Голосовая почта",
+"Сохранение настроек"
+].sort().forEach(e => {
+    gr.push({name: e, value: { tp: "viewEditRadio", value: "edit" }});
+});
+tableDataNested.push({name: "Настройки", value: { tp: "viewEdit", value: "edit" } , _children: gr});
+}
+//Абоненты
+{
+tableDataNested.push({name: "Абоненты", value: { tp: "string", value: ""} , _children: [
+{name: "Список", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "ownDep": "Свой отдел", "deps": "Отделы"} }, _children: [
+        {name: "", value: { tp: "viewEditRadio", value: "edit",  values: {"view": "Просмотр", "edit": "Изменение" }}},
+]},
+{name: "Назначать права доступа", value: { tp: "string", value: ""} , _children: [
+        {name: "Сотрудник", value: { tp: "string", value: ""}},
+        {name: "Супервайзер", value: { tp: "boolean", value: true}},
+        {name: "Менеджер", value: { tp: "boolean", value: true}},
+        {name: "Администратор", value: { tp: "boolean", value: true}},
+        {name: "Роль 1", value: { tp: "boolean", value: true}},
+        {name: "Роль 2", value: { tp: "boolean", value: true}},
+]},
+{name: "Смена пароля, отключение номера", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "ownDep": "Свой отдел", "deps": "Отделы"} }},
+{name: "Профиль", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "ownDep": "Свой отдел", "deps": "Отделы"} }, _children: [
+        {name: "", value: { tp: "viewEditRadio", value: "edit",  values: {"view": "Просмотр", "edit": "Изменение" }}},
+]},
+//Услуги
+{name: "Услуги", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "ownDep": "Свой отдел", "deps": "Отделы"} } , _children: [
+        {name: "", value: { tp: "viewEdit", value: "edit"}, _children: [
+            {name: "Простая переадресация вызовов", value: { tp: "viewEditRadio", value: "edit" }},
+            {name: "Выборочная переадресация вызовов", value: { tp: "viewEditRadio", value: "edit" }},
+            {name: "Одновременный и последовательный вызов", value: { tp: "viewEditRadio", value: "edit" }},
+            {name: "Выборочный прием звонков", value: { tp: "viewEditRadio", value: "edit" }},
+            {name: "SIP-аккаунт", value: { tp: "viewEditRadio", value: "edit" }},
+            {name: "Дополнительный номер", value: { tp: "viewEditRadio", value: "edit" }},
+            {name: "Голосовая почта", value: { tp: "viewEditRadio", value: "edit" }},
+            {name: "Перевод вызова", value: { tp: "viewEditRadio", value: "edit" }},
+        ]},
+]},
+]});
+//
+}
+
+//http://tabulator.info/docs/4.0/format
+Tabulator.prototype.extendModule("format", "formatters", {
+    checkValue:function(cell, formatterParams, onRendered){
+        var cellValue = cell.getValue();
+        if (cellValue === null || typeof cellValue === 'undefined') {
+        } else {
+            if ("tp" in cellValue) {
+                var tp = cellValue.tp;
+                if (tp === "boolean") {
+                    return new CheckComponent(cellValue, false).getComponent();
+                    /*
+                    var fakeCell = {
+                        getValue: function() {
+                            return cellValue.value;
+                        },
+                        getElement: function() {
+                            return cell.getElement();
+                        },
+                    };
+                    return this.formatters.tickCross(fakeCell, formatterParams, onRendered);
+                    */
+                } else if (tp === "viewEdit") {
+                    return new ViewEditComponent(cell, false).getComponent();
+                } else if (tp === "viewEditRadio") {
+                    return new ViewEditRadioComponent(cellValue, false).getComponent();
+                } else if (tp === "viewEditCheck") {
+                    return new ViewEditCheckComponent(cellValue, false).getComponent();
+                } else if ("value" in cellValue) {
+                    return "" + cellValue.value;
+                }
+            }
+        }
+        return "" + cellValue;
+    }
+});
+class CheckComponent {
+    getComponent() {
+        return this.input;
+    }
+    
+    constructor(cellValue, isEditMode, onRendered, success, cancel) {
+        this.cellValue = cellValue;
+        this.input = document.createElement("input");
+        var input = this.input;
+        input.setAttribute("name", "val");
+        input.setAttribute("type", "checkbox");
+        input.checked = cellValue.value;
+        
+        if (isEditMode) {
+            onRendered(function () {
+                input.focus();
+            });
+                    
+            function onChange(e) {
+                if (input.checked != cellValue.value) {
+                    cellValue.value = input.checked;
+                    success(cellValue);
+                } else {
+                    cancel();
+                }
+            }
+            input.addEventListener("change", onChange);
+            input.addEventListener("blur", onChange);
+            
+            input.addEventListener("keydown", function (e) {
+                if (e.keyCode == 13) {
+                    cellValue.value = input.checked;
+                    success(cellValue);
+                }
+
+                if (e.keyCode == 27) {
+                    cancel();
+                }
+            });
+        }
+    }
+}
+
+class ViewEditComponent {
+    getComponent() {
+        return this.div;
+    }
+    
+    setVal(v) {
+        if (v === "edit") {
+            this.inputView.checked = true;
+            this.inputEdit.checked = true;
+        } else if (v === "view") {
+            this.inputView.checked = true;
+            this.inputEdit.checked = false;
+        } else {
+            this.inputView.checked = false;
+            this.inputEdit.checked = false;
+        }
+    }
+    
+    _collapse() {
+        var row = this.cell._cell.row.component;
+        if (!this.inputView.checked) {
+            row.treeCollapse();
+        } else if (this.inputEdit.checked || this.inputView.checked) {
+            row.treeExpand();
+        }
+    }
+    
+    inpValue() {
+        var v = "off";
+        if (this.inputView.checked) {
+            v = "view";
+        } else {
+            return v;
+        }
+        if (this.inputEdit.checked) {
+            v = "edit";
+        }
+        return v;
+    }
+    
+    fixValue() {
+        this.cellValue.value = this.inpValue();
+        return this.cellValue;
+    }
+    
+    constructor(cell, isEditMode, onRendered, success, cancel) {
+        this.cell = cell;
+        var cellValue = cell.getValue();
+        this.success = success;
+        this.cancel = cancel;
+        this.cellValue = cellValue;
+        this.div = document.createElement("div");
+        var div = this.div;
+                    
+        this.inputView = document.createElement("input");
+        var inputView = this.inputView;
+        inputView.setAttribute("name", "view");
+        inputView.setAttribute("type", "checkbox");
+        div.appendChild(inputView);
+        div.appendChild(document.createTextNode("Просмотр"));
+                    
+        this.inputEdit = document.createElement("input");
+        var inputEdit = this.inputEdit;
+        inputEdit.setAttribute("name", "edit");
+        inputEdit.setAttribute("type", "checkbox");
+        div.appendChild(inputEdit);
+        div.appendChild(document.createTextNode("Редактирование"));
+                    
+        this.setVal(this.cellValue.value);
+
+        var me = this;
+        if (isEditMode) {
+            onRendered(function () {
+                inputView.focus();
+            });
+                    
+            function onChangeView(e) {
+                if (!inputView.checked) {
+                    inputEdit.checked = false;
+                }
+                me._fixChanged();
+            }
+            function onChangeEdit(e) {
+                if (inputEdit.checked) {
+                    inputView.checked = true;
+                }
+                me._fixChanged();
+            }
+            inputView.addEventListener("change", onChangeView);
+            inputView.addEventListener("blur", onChangeView);
+            inputEdit.addEventListener("change", onChangeEdit);
+            inputEdit.addEventListener("blur", onChangeEdit);
+            
+            inputView.addEventListener("keydown", (e) => me._endEdit(e));
+            inputEdit.addEventListener("keydown", (e) => me._endEdit(e));
+            div.addEventListener("blur", (e) => me._endEdit(e));
+        }
+    }
+    
+    _fixChanged() {
+        var v = this.inpValue();
+        if (v !== this.cellValue.value) {
+            this.cellValue.value = v;
+            this.setVal(this.cellValue.value);
+        }
+    }
+    
+    _endEdit(e) {
+        if (e.keyCode == 13) {
+            this.cellValue.value = this.inpValue();
+            this.success(this.cellValue);
+            this._collapse();
+        }
+
+        if (e.keyCode == 27) {
+            this.cancel();
+        }
+    }
+}
+class ViewEditRadioComponent {
+    getComponent() {
+        return this.div;
+    }
+    
+    setVal(v) {
+        this.inputViews.forEach(e => {
+            if (v === e.getAttribute("value")) {
+                e.checked = true;
+            } else {
+                e.checked = false;
+            }
+        });
+     }
+    
+     inpValue() {
+         var v;
+         this.inputViews.forEach(e => {
+            if (e.checked) {
+                v = e.getAttribute("value");
+            }
+         });
+         return v;
+     }
+     
+     fixValue() {
+         this.cellValue.value = this.inpValue();
+         return this.cellValue;
+     }
+    
+    constructor(cellValue, isEditMode, onRendered, success, cancel) {
+        var id = "id" + Math.random().toString(16).slice(2);
+
+        this.success = success;
+        this.cancel = cancel;
+        this.cellValue = cellValue;
+        this.div = document.createElement("div");
+        var div = this.div;
+
+        this.inputViews = [];
+        
+        var values;
+        if ("values" in cellValue) {
+            values = cellValue.values;
+        } else {
+            values = {"off": "Нет", "view": "Просмотр", "edit": "Редактирование" };
+        }
+        for (var k in values) {
+            var inputView = document.createElement("input");
+            this.inputViews.push(inputView);
+            inputView.setAttribute("name", "val" + id);
+            inputView.setAttribute("type", "radio");
+            inputView.setAttribute("value", k);
+            div.appendChild(inputView);
+            div.appendChild(document.createTextNode(values[k]));
+        };
+                    
+        this.setVal(this.cellValue.value);
+
+        var me = this;
+        if (isEditMode) {
+            onRendered(function () {
+                me.inputViews[0].focus();
+            });
+            this.inputViews.forEach(e => {
+                e.addEventListener("keydown", (e) => me._endEdit(e));
+            });
+            div.addEventListener("focusout", (e) => me._endEdit(e));
+         }
+    }
+    
+    _endEdit(e) {
+        if (e.keyCode == 13) {
+            this.cellValue.value = this.inpValue();
+            this.success(this.cellValue);
+        }
+
+        if (e.keyCode == 27) {
+            this.cancel();
+        }
+    }
+}
+
+class ViewEditCheckComponent {
+    getComponent() {
+        return this.div;
+    }
+    
+    setVal(v) {
+        for (var k in this.inputViewsMap) {
+            this.inputViewsMap[k].checked = v.includes(k);
+        }
+     }
+    
+    inpValue() {
+        var v = [];
+         
+        for (var k in this.inputViewsMap) {
+            if (this.inputViewsMap[k].checked) {
+                v.push(k);
+            }
+        }
+        return v;
+    }
+     
+     fixValue() {
+         this.cellValue.value = this.inpValue();
+         return this.cellValue;
+     }
+    
+    constructor(cellValue, isEditMode, onRendered, success, cancel) {
+        var id = "id" + Math.random().toString(16).slice(2);
+
+        this.success = success;
+        this.cancel = cancel;
+        this.cellValue = cellValue;
+        this.div = document.createElement("div");
+        var div = this.div;
+
+        this.inputViews = [];
+        this.inputViewsMap = {};
+        
+        var values;
+        if ("values" in cellValue) {
+            values = cellValue.values;
+        } else {
+            values = {"view": "Просмотр", "edit": "Редактирование" };
+        }
+        for (var k in values) {
+            var inputView = document.createElement("input");
+            this.inputViews.push(inputView);
+            this.inputViewsMap[k] = inputView;
+            inputView.setAttribute("id", "val" + id +k);
+            inputView.setAttribute("type", "checkbox");
+            div.appendChild(inputView);
+            div.appendChild(document.createTextNode(values[k]));
+        };
+                    
+        this.setVal(this.cellValue.value);
+
+        var me = this;
+        if (isEditMode) {
+            onRendered(function () {
+                me.inputViews[0].focus();
+            });
+            this.inputViews.forEach(e => {
+                e.addEventListener("keydown", (e) => me._endEdit(e));
+            });
+            div.addEventListener("focusout", (e) => me._endEdit(e));
+         }
+    }
+    
+    _endEdit(e) {
+        if (e.keyCode == 13) {
+            this.cellValue.value = this.inpValue();
+            this.success(this.cellValue);
+        }
+
+        if (e.keyCode == 27) {
+            this.cancel();
+        }
+    }
+}
+Tabulator.prototype.extendModule("edit", "editors", {
+    checkEditor:function(cell, onRendered, success, cancel, editorParams){
+
+        var cellValue = cell.getValue();
+        
+        if (cellValue === null || typeof cellValue === 'undefined') {
+        } else {
+            if ("tp" in cellValue) {
+                if (cellValue.tp === "boolean") {
+                    return new CheckComponent(cellValue, true, onRendered, success, cancel).getComponent();
+                } else if (cellValue.tp === "viewEdit") {
+                    return new ViewEditComponent(cell, true, onRendered, success, cancel).getComponent();
+                } else if (cellValue.tp === "viewEditRadio") {
+                    return new ViewEditRadioComponent(cellValue, true, onRendered, success, cancel).getComponent();
+                } else if (cellValue.tp === "viewEditCheck") {
+                    return new ViewEditCheckComponent(cellValue, true, onRendered, success, cancel).getComponent();
+                }
+            }
+        }
+        
+        var div = document.createElement("div");
+
+        return div;
+    },
+});
+var table = new Tabulator("#example-table", {
+    layout:"fitDataTable",
+    data:tableDataNested,
+    dataTree:true,
+    dataTreeStartExpanded:true,
+    clipboard:true,
+    columns:[
+    
+    {title:" ", field:"name", responsive:0}, //never hide this column
+    {title:" ", field:"value", hozAlign:"left", editor: "checkEditor", formatter:"checkValue", editable:true, columnMinWidth:800}
+    ],
+    layoutColumnsOnNewData:true
+});
+table.getRows().forEach(e => {
+    if ("off" === e._row.data.value.value) {
+        var row = e._row.component;
+        //row.treeCollapse();
+    }
+});
+window.addEventListener('resize', function(){
+    table.redraw(true); //trigger full rerender including all data and rows
+});
+setTimeout( () => table.redraw(true), 1000);
+</script>
+	</body>
+</html>
