@@ -8,15 +8,14 @@
   <script src='jq/jquery-3.4.1.js'></script>
   <style>
 
-.tabulator-header {
+#example-table > .tabulator-header {
     height: 0;
 }
   </style>
   
 	</head>
 	<body>
-	<h3>Права доступа</h3>
-
+	<!--h3>Права доступа</h3-->
     <div id="example-table"></div>
 		
 <script type="text/javascript" src="tabulator/js/tabulator.js"></script>
@@ -26,7 +25,7 @@
 
 var tableDataNested = [
     {name: "Роль в \"Мобильном предприятии\"", value: { tp: "viewEditRadio", value: "admin", values: {"admin": "Администратор", "manager": "Менеджер", "user": "Сотрудник"} }},
-    {name: "Доступ к другим подразделениям", value: { tp: "boolean", value: true}},
+    {name: "Доступ к другим подразделениям", value: { tp: "selectTable", value: true}},
     {name: "Профиль", value: { tp: "viewEdit", value: "edit" } , _children: [
         {name: "Пакет услуг", value: { tp: "viewEditRadio", value: "edit" }},
         {name: "Многоканальные номера", value: { tp: "viewEditRadio", value: "edit" }},
@@ -169,6 +168,8 @@ Tabulator.prototype.extendModule("format", "formatters", {
                     return new ViewEditRadioComponent(cellValue).getComponent();
                 } else if (tp === "viewEditCheck") {
                     return new ViewEditCheckComponent(cellValue).getComponent();
+                } else if (tp === "selectTable") {
+                    return new SelectTableComponent(cellValue).getComponent();
                 } else if ("value" in cellValue) {
                     return "" + cellValue.value;
                 }
@@ -177,6 +178,62 @@ Tabulator.prototype.extendModule("format", "formatters", {
         return "" + cellValue;
     }
 });
+class SelectTableComponent {
+    getComponent() {
+        return this.input;
+    }
+    
+    constructor(cellValue) {
+        var inp = document.createElement("div");
+        var tableEl = document.createElement("div");
+        var zzz = [
+        {id: 1, name: "Бухгалтерия", value: {tp: "boolean", value: true} },
+        {id: 2, name: "ИТ" , value: {tp: "boolean", value: true} },
+        {id: 3, name: "HR" , value: {tp: "boolean", value: true} },
+        {id: 4, name: "Маркетологи" , value: {tp: "boolean", value: true} },
+        {id: 5, name: "Экономисты" , value: {tp: "boolean", value: true} },
+        {id: 6, name: "PR" , value: {tp: "boolean", value: true} },
+        {id: 7, name: "Дизайн" , value: {tp: "boolean", value: true} },
+        {id: 8, name: "Дирекция" , value: {tp: "boolean", value: true} },
+        {id: 9, name: "Страхование" , value: {tp: "boolean", value: true} },
+        {id: 10, name: "Клининг" , value: {tp: "boolean", value: true} },
+        ];
+        this.input = inp;
+        //tableEl.style.width = "100%";
+        inp.style.width = "100%";
+        inp.appendChild(tableEl);
+        
+        var subTable = new Tabulator(tableEl, {
+        height: "200px",
+        //width: "300px",
+        layout: "fitDataFill", //"fitDataFill" "fitColumns"
+        data: zzz,
+        columns: [
+            {title:" ", field:"value", hozAlign:"left", formatter:"checkValue", editable:false, headerSort:false},
+
+            {
+            title: "Подразделения",
+            field: "name",
+            sorter: "string",
+            headerFilter:true, headerFilterPlaceholder: "Поиск...",
+            width: "100%"
+            },
+        ],
+        initialSort:[
+            {column:"name", dir:"asc"}
+        ]
+        });
+        var r = subTable.getRows().filter((row) => {
+            return row.getData().id === 9;
+        })[0];
+
+        setTimeout( () => {
+            subTable.redraw(true);
+//             subTable.selectRow(r);
+//             subTable.scrollToRow(r, "top", false);
+            }, 1000);
+    }
+}
 class CheckComponent {
     getComponent() {
         return this.input;
@@ -421,17 +478,10 @@ var table = new Tabulator("#example-table", {
     columns:[
     
     {title:" ", field:"name", responsive:0}, //never hide this column
-    {title:" ", field:"value", hozAlign:"left", editor: "checkEditor", formatter:"checkValue", editable:!true, columnMinWidth:800,
-        cellMouseEnter:function(e, cell){
-            //e - the event object
-            //cell - cell component
-            if (!cell.isEdited()) {
-                //cell.edit();
-            }
-        }   
-    }
+    {title:" ", field:"value", hozAlign:"left", formatter:"checkValue", editable:false}
     ],
     layoutColumnsOnNewData:true,
+    resizableRows:false,
 });
 window.addEventListener('resize', function(){
     table.redraw(true); //trigger full rerender including all data and rows
