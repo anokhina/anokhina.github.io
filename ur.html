@@ -19,7 +19,7 @@
 
     <div id="example-table"></div>
 		
-<script type="text/javascript" src="tabulator/js/tabulator.min.js"></script>
+<script type="text/javascript" src="tabulator/js/tabulator.js"></script>
 						
 <script type="text/javascript">
 // http://tabulator.info/examples/4.7#tree
@@ -39,31 +39,21 @@ var tableDataNested = [
 var gr = [];
 [
 "Голосовое меню",
-"Кол-центр",
-"Короткий номер", 
+"Call-центр",
 "Группа обзвона", 
 "Конференция", 
 "АОН", 
 "Облачное хранилище", 
-"Голосовая почта", 
-"Переадресация вызовов", 
-"Одновременный вызов", 
-"Последовательный вызов", 
-"Выборочная переадрессация", 
-"Черные и белые списки", 
+"Индивидуальная переадрессация", 
 "Факс", 
 "Звонок с сайта", 
-"Запись звонка", 
+"Запись разговоров", 
 "Индивидуальные пакеты \"Эксперт\"", 
 "Мелодия вызова", 
-"Группа ограничений", 
-"Группа перехвата", 
-"Доступ к приложениям для звонков", 
-"SIP-аккаунт", 
-"Дополнительный номер", 
+"Ограничения вызовов", 
+"Перехват вызовов", 
 "Голосовые кампании", 
-"Внешние АТС", 
-"Перевод вызова", 
+"Внешние АТС по SIP", 
 "CRM-коннектор", 
 "Выборочный прием звонков", 
 "АнтиАОН", 
@@ -78,7 +68,7 @@ tableDataNested.push({name: "Групповые услуги", value: { tp: "vie
 
 tableDataNested.push({name: "Файлы", value: { tp: "string", value: "" }, _children: [
         //
-        {name: "Запись разговоров", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "own": "Свои", "ownDep": "Свой отдел", "deps": "Отделы"} }, _children: [
+        {name: "Запись разговоров", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "own": "Свои", "ownDep": "Своё подразделение", "deps": "Подразделения"} }, _children: [
             {name: "Просмотр", value: { tp: "boolean", value: true}},
             {name: "Прослушивание", value: { tp: "boolean", value: true}},
             {name: "Скачивание", value: { tp: "boolean", value: true}},
@@ -86,7 +76,7 @@ tableDataNested.push({name: "Файлы", value: { tp: "string", value: "" }, _c
             {name: "Удаление", value: { tp: "boolean", value: true}},
         ]},
         {name: "Факсы", value: { tp: "viewEditCheck", value: ["view", "download", "comment", "delete"],  values: {"view": "Просмотр", "download": "Скачивание","comment": "Комментарии", "delete": "Удаление"}}},
-        {name: "Голосовая почта", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "own": "Свои", "ownDep": "Свой отдел", "deps": "Отделы"} }, _children: [
+        {name: "Голосовая почта", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "own": "Свои", "ownDep": "Своё подразделение", "deps": "Подразделения"} }, _children: [
             {name: "Просмотр", value: { tp: "boolean", value: true}},
             {name: "Прослушивание", value: { tp: "boolean", value: true}},
             {name: "Скачивание", value: { tp: "boolean", value: true}},
@@ -98,7 +88,7 @@ tableDataNested.push({name: "Файлы", value: { tp: "string", value: "" }, _c
 ]});
 
 //Статистика
-tableDataNested.push({name: "Статистика", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "ownnumber": "Свой номер", "ownDep": "Свой отдел", "deps": "Отделы"} }, _children: [
+tableDataNested.push({name: "Статистика", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "ownnumber": "Свой номер", "ownDep": "Своё подразделение", "deps": "Подразделения"} }, _children: [
         {name: "", value: { tp: "viewEditRadio", value: "edit",  values: {"view": "Просмотр", "edit": "Скачать" }}},
 ]});
 
@@ -120,7 +110,7 @@ tableDataNested.push({name: "Настройки", value: { tp: "viewEdit", value
 //Абоненты
 {
 tableDataNested.push({name: "Абоненты", value: { tp: "string", value: ""} , _children: [
-{name: "Список", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "ownDep": "Свой отдел", "deps": "Отделы"} }, _children: [
+{name: "Список", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "ownDep": "Своё подразделение", "deps": "Подразделения"} }, _children: [
         {name: "", value: { tp: "viewEditRadio", value: "edit",  values: {"view": "Просмотр", "edit": "Изменение" }}},
 ]},
 {name: "Назначать права доступа", value: { tp: "string", value: ""} , _children: [
@@ -131,12 +121,12 @@ tableDataNested.push({name: "Абоненты", value: { tp: "string", value: ""
         {name: "Роль 1", value: { tp: "boolean", value: true}},
         {name: "Роль 2", value: { tp: "boolean", value: true}},
 ]},
-{name: "Смена пароля, отключение номера", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "ownDep": "Свой отдел", "deps": "Отделы"} }},
-{name: "Профиль", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "ownDep": "Свой отдел", "deps": "Отделы"} }, _children: [
+{name: "Смена пароля, отключение номера", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "ownDep": "Своё подразделение", "deps": "Подразделения"} }},
+{name: "Профиль", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "ownDep": "Своё подразделение", "deps": "Подразделения"} }, _children: [
         {name: "", value: { tp: "viewEditRadio", value: "edit",  values: {"view": "Просмотр", "edit": "Изменение" }}},
 ]},
 //Услуги
-{name: "Услуги", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "ownDep": "Свой отдел", "deps": "Отделы"} } , _children: [
+{name: "Услуги", value: { tp: "viewEditRadio", value: "all", values: {"off": "Нет", "all": "Всё", "ownDep": "Своё подразделение", "deps": "Подразделения"} } , _children: [
         {name: "", value: { tp: "viewEdit", value: "edit"}, _children: [
             {name: "Простая переадресация вызовов", value: { tp: "viewEditRadio", value: "edit" }},
             {name: "Выборочная переадресация вызовов", value: { tp: "viewEditRadio", value: "edit" }},
@@ -202,30 +192,15 @@ class CheckComponent {
         
         if (isEditMode) {
             onRendered(function () {
-                input.focus();
+                //input.focus();
             });
                     
             function onChange(e) {
                 if (input.checked != cellValue.value) {
                     cellValue.value = input.checked;
-                    success(cellValue);
-                } else {
-                    cancel();
                 }
             }
             input.addEventListener("change", onChange);
-            input.addEventListener("blur", onChange);
-            
-            input.addEventListener("keydown", function (e) {
-                if (e.keyCode == 13) {
-                    cellValue.value = input.checked;
-                    success(cellValue);
-                }
-
-                if (e.keyCode == 27) {
-                    cancel();
-                }
-            });
         }
     }
 }
@@ -270,11 +245,6 @@ class ViewEditComponent {
         return v;
     }
     
-    fixValue() {
-        this.cellValue.value = this.inpValue();
-        return this.cellValue;
-    }
-    
     constructor(cell, isEditMode, onRendered, success, cancel) {
         this.cell = cell;
         var cellValue = cell.getValue();
@@ -303,7 +273,7 @@ class ViewEditComponent {
         var me = this;
         if (isEditMode) {
             onRendered(function () {
-                inputView.focus();
+                //inputView.focus();
             });
                     
             function onChangeView(e) {
@@ -319,13 +289,7 @@ class ViewEditComponent {
                 me._fixChanged();
             }
             inputView.addEventListener("change", onChangeView);
-            inputView.addEventListener("blur", onChangeView);
             inputEdit.addEventListener("change", onChangeEdit);
-            inputEdit.addEventListener("blur", onChangeEdit);
-            
-            inputView.addEventListener("keydown", (e) => me._endEdit(e));
-            inputEdit.addEventListener("keydown", (e) => me._endEdit(e));
-            div.addEventListener("blur", (e) => me._endEdit(e));
         }
     }
     
@@ -333,21 +297,11 @@ class ViewEditComponent {
         var v = this.inpValue();
         if (v !== this.cellValue.value) {
             this.cellValue.value = v;
-            this.setVal(this.cellValue.value);
-        }
-    }
-    
-    _endEdit(e) {
-        if (e.keyCode == 13) {
-            this.cellValue.value = this.inpValue();
             this.success(this.cellValue);
             this._collapse();
         }
-
-        if (e.keyCode == 27) {
-            this.cancel();
-        }
     }
+    
 }
 class ViewEditRadioComponent {
     getComponent() {
@@ -356,10 +310,8 @@ class ViewEditRadioComponent {
     
     setVal(v) {
         this.inputViews.forEach(e => {
-            if (v === e.getAttribute("value")) {
+            if (v === e.getAttribute("value") && !e.checked) {
                 e.checked = true;
-            } else {
-                e.checked = false;
             }
         });
      }
@@ -380,7 +332,8 @@ class ViewEditRadioComponent {
      }
     
     constructor(cellValue, isEditMode, onRendered, success, cancel) {
-        var id = "id" + Math.random().toString(16).slice(2);
+        var id = "";
+        id = "id" + Math.random().toString(16).slice(2);
 
         this.success = success;
         this.cancel = cancel;
@@ -411,24 +364,12 @@ class ViewEditRadioComponent {
         var me = this;
         if (isEditMode) {
             onRendered(function () {
-                me.inputViews[0].focus();
+                //me.inputViews[0].focus();
             });
             this.inputViews.forEach(e => {
-                e.addEventListener("keydown", (e) => me._endEdit(e));
+                e.addEventListener("change", (e) => me.fixValue());
             });
-            div.addEventListener("focusout", (e) => me._endEdit(e));
          }
-    }
-    
-    _endEdit(e) {
-        if (e.keyCode == 13) {
-            this.cellValue.value = this.inpValue();
-            this.success(this.cellValue);
-        }
-
-        if (e.keyCode == 27) {
-            this.cancel();
-        }
     }
 }
 
@@ -492,24 +433,12 @@ class ViewEditCheckComponent {
         var me = this;
         if (isEditMode) {
             onRendered(function () {
-                me.inputViews[0].focus();
+                //me.inputViews[0].focus();
             });
             this.inputViews.forEach(e => {
-                e.addEventListener("keydown", (e) => me._endEdit(e));
+                e.addEventListener("changed", (e) => me.fixValue());
             });
-            div.addEventListener("focusout", (e) => me._endEdit(e));
          }
-    }
-    
-    _endEdit(e) {
-        if (e.keyCode == 13) {
-            this.cellValue.value = this.inpValue();
-            this.success(this.cellValue);
-        }
-
-        if (e.keyCode == 27) {
-            this.cancel();
-        }
     }
 }
 Tabulator.prototype.extendModule("edit", "editors", {
@@ -546,20 +475,30 @@ var table = new Tabulator("#example-table", {
     columns:[
     
     {title:" ", field:"name", responsive:0}, //never hide this column
-    {title:" ", field:"value", hozAlign:"left", editor: "checkEditor", formatter:"checkValue", editable:true, columnMinWidth:800}
-    ],
-    layoutColumnsOnNewData:true
-});
-table.getRows().forEach(e => {
-    if ("off" === e._row.data.value.value) {
-        var row = e._row.component;
-        //row.treeCollapse();
+    {title:" ", field:"value", hozAlign:"left", editor: "checkEditor", formatter:"checkValue", editable:true, columnMinWidth:800,
+        cellMouseEnter:function(e, cell){
+            //e - the event object
+            //cell - cell component
+            if (!cell.isEdited()) {
+                //cell.edit();
+            }
+        }   
     }
+    ],
+    layoutColumnsOnNewData:true,
 });
 window.addEventListener('resize', function(){
     table.redraw(true); //trigger full rerender including all data and rows
 });
-setTimeout( () => table.redraw(true), 1000);
+setTimeout( () => { 
+    table.redraw(true); 
+    table.getRows().forEach(e => {
+        if ("off" === e._row.data.value.value) {
+            var row = e._row.component;
+            row.treeCollapse();
+        }
+    });
+}, 1000);
 </script>
 	</body>
 </html>
