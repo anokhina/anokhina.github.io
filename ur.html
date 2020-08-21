@@ -151,7 +151,7 @@ Tabulator.prototype.extendModule("format", "formatters", {
             if ("tp" in cellValue) {
                 var tp = cellValue.tp;
                 if (tp === "boolean") {
-                    return new CheckComponent(cellValue, false).getComponent();
+                    return new CheckComponent(cellValue).getComponent();
                     /*
                     var fakeCell = {
                         getValue: function() {
@@ -164,11 +164,11 @@ Tabulator.prototype.extendModule("format", "formatters", {
                     return this.formatters.tickCross(fakeCell, formatterParams, onRendered);
                     */
                 } else if (tp === "viewEdit") {
-                    return new ViewEditComponent(cell, false).getComponent();
+                    return new ViewEditComponent(cell).getComponent();
                 } else if (tp === "viewEditRadio") {
-                    return new ViewEditRadioComponent(cellValue, false).getComponent();
+                    return new ViewEditRadioComponent(cellValue).getComponent();
                 } else if (tp === "viewEditCheck") {
-                    return new ViewEditCheckComponent(cellValue, false).getComponent();
+                    return new ViewEditCheckComponent(cellValue).getComponent();
                 } else if ("value" in cellValue) {
                     return "" + cellValue.value;
                 }
@@ -182,7 +182,7 @@ class CheckComponent {
         return this.input;
     }
     
-    constructor(cellValue, isEditMode, onRendered, success, cancel) {
+    constructor(cellValue) {
         this.cellValue = cellValue;
         this.input = document.createElement("input");
         var input = this.input;
@@ -190,18 +190,12 @@ class CheckComponent {
         input.setAttribute("type", "checkbox");
         input.checked = cellValue.value;
         
-        if (isEditMode) {
-            onRendered(function () {
-                //input.focus();
-            });
-                    
-            function onChange(e) {
-                if (input.checked != cellValue.value) {
-                    cellValue.value = input.checked;
-                }
+        function onChange(e) {
+            if (input.checked != cellValue.value) {
+                cellValue.value = input.checked;
             }
-            input.addEventListener("change", onChange);
         }
+        input.addEventListener("change", onChange);
     }
 }
 
@@ -245,11 +239,9 @@ class ViewEditComponent {
         return v;
     }
     
-    constructor(cell, isEditMode, onRendered, success, cancel) {
+    constructor(cell) {
         this.cell = cell;
         var cellValue = cell.getValue();
-        this.success = success;
-        this.cancel = cancel;
         this.cellValue = cellValue;
         this.div = document.createElement("div");
         var div = this.div;
@@ -271,33 +263,27 @@ class ViewEditComponent {
         this.setVal(this.cellValue.value);
 
         var me = this;
-        if (isEditMode) {
-            onRendered(function () {
-                //inputView.focus();
-            });
-                    
-            function onChangeView(e) {
-                if (!inputView.checked) {
-                    inputEdit.checked = false;
-                }
-                me._fixChanged();
+
+        function onChangeView(e) {
+            if (!inputView.checked) {
+                inputEdit.checked = false;
             }
-            function onChangeEdit(e) {
-                if (inputEdit.checked) {
-                    inputView.checked = true;
-                }
-                me._fixChanged();
-            }
-            inputView.addEventListener("change", onChangeView);
-            inputEdit.addEventListener("change", onChangeEdit);
+            me._fixChanged();
         }
+        function onChangeEdit(e) {
+            if (inputEdit.checked) {
+                inputView.checked = true;
+            }
+            me._fixChanged();
+        }
+        inputView.addEventListener("change", onChangeView);
+        inputEdit.addEventListener("change", onChangeEdit);
     }
     
     _fixChanged() {
         var v = this.inpValue();
         if (v !== this.cellValue.value) {
             this.cellValue.value = v;
-            this.success(this.cellValue);
             this._collapse();
         }
     }
@@ -331,12 +317,9 @@ class ViewEditRadioComponent {
          return this.cellValue;
      }
     
-    constructor(cellValue, isEditMode, onRendered, success, cancel) {
-        var id = "";
-        id = "id" + Math.random().toString(16).slice(2);
+    constructor(cellValue) {
+        var id = "id" + Math.random().toString(16).slice(2);
 
-        this.success = success;
-        this.cancel = cancel;
         this.cellValue = cellValue;
         this.div = document.createElement("div");
         var div = this.div;
@@ -362,14 +345,9 @@ class ViewEditRadioComponent {
         this.setVal(this.cellValue.value);
 
         var me = this;
-        if (isEditMode) {
-            onRendered(function () {
-                //me.inputViews[0].focus();
-            });
-            this.inputViews.forEach(e => {
-                e.addEventListener("change", (e) => me.fixValue());
-            });
-         }
+        this.inputViews.forEach(e => {
+            e.addEventListener("change", (e) => me.fixValue());
+        });
     }
 }
 
@@ -400,11 +378,9 @@ class ViewEditCheckComponent {
          return this.cellValue;
      }
     
-    constructor(cellValue, isEditMode, onRendered, success, cancel) {
+    constructor(cellValue) {
         var id = "id" + Math.random().toString(16).slice(2);
 
-        this.success = success;
-        this.cancel = cancel;
         this.cellValue = cellValue;
         this.div = document.createElement("div");
         var div = this.div;
@@ -431,41 +407,11 @@ class ViewEditCheckComponent {
         this.setVal(this.cellValue.value);
 
         var me = this;
-        if (isEditMode) {
-            onRendered(function () {
-                //me.inputViews[0].focus();
-            });
-            this.inputViews.forEach(e => {
-                e.addEventListener("changed", (e) => me.fixValue());
-            });
-         }
+        this.inputViews.forEach(e => {
+            e.addEventListener("changed", (e) => me.fixValue());
+        });
     }
 }
-Tabulator.prototype.extendModule("edit", "editors", {
-    checkEditor:function(cell, onRendered, success, cancel, editorParams){
-
-        var cellValue = cell.getValue();
-        
-        if (cellValue === null || typeof cellValue === 'undefined') {
-        } else {
-            if ("tp" in cellValue) {
-                if (cellValue.tp === "boolean") {
-                    return new CheckComponent(cellValue, true, onRendered, success, cancel).getComponent();
-                } else if (cellValue.tp === "viewEdit") {
-                    return new ViewEditComponent(cell, true, onRendered, success, cancel).getComponent();
-                } else if (cellValue.tp === "viewEditRadio") {
-                    return new ViewEditRadioComponent(cellValue, true, onRendered, success, cancel).getComponent();
-                } else if (cellValue.tp === "viewEditCheck") {
-                    return new ViewEditCheckComponent(cellValue, true, onRendered, success, cancel).getComponent();
-                }
-            }
-        }
-        
-        var div = document.createElement("div");
-
-        return div;
-    },
-});
 var table = new Tabulator("#example-table", {
     layout:"fitDataTable",
     data:tableDataNested,
@@ -475,7 +421,7 @@ var table = new Tabulator("#example-table", {
     columns:[
     
     {title:" ", field:"name", responsive:0}, //never hide this column
-    {title:" ", field:"value", hozAlign:"left", editor: "checkEditor", formatter:"checkValue", editable:true, columnMinWidth:800,
+    {title:" ", field:"value", hozAlign:"left", editor: "checkEditor", formatter:"checkValue", editable:!true, columnMinWidth:800,
         cellMouseEnter:function(e, cell){
             //e - the event object
             //cell - cell component
