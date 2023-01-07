@@ -9,3 +9,5 @@
 <https://github.com/paulrosen/abcjs/blob/main/docs/audio/synthesized-sound.md>
 
 <https://github.com/markedjs/marked>
+
+<https://muz-teoretik.ru/tempy-v-muzyke/>
