@@ -1,0 +1,19 @@
+X:1
+T:Keys and modes
+M:4/4
+T:*
+T:C - До мажор (C-dur)
+K:C
+CDEF GABc | cBAG FEDC |]
+T:*
+T:Am - Ля минор (a-moll)
+K:Am
+ABcd efga | agfe dcBA |]
+T:*
+T:F - Фа мажор (F-dur)
+K:F
+FGAB cdef | fedc BAGF|]
+T:*
+T:Dm - Ре минор (d-moll)
+K:Dm
+DEFG ABcd | dcBA GFED|]
