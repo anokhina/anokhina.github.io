@@ -1,9 +1,28 @@
 X:1
 T:Keys and modes
 M:4/4
+L:1/4
+[E4F]| [B4c] |]
+T:Accidentals
+__A _A =A ^A ^^A |]
+T: cleff=treble
+"c" c "d" d "e" e "f" f "g" g "a" a "b" b "c'" c' |]
+"C" C "D" D "E" E "F" F "G" G "A" A "B" B "c" c |]
+T: cleff=bass
+V:1 cleff=bass
+"C," C, "D," D, "E," E, "F,"F, "G," G, "A," A, "B," B, "C" C
+"C,," C,, "D,," D,, "E,," E,, "F,,"F,, "G,," G,, "A,," A,, "B,," B,, "C," C,
+T:*
+T: Мажорные тональности
+V:1 cleff=treble
+"7) C#" ^c2 "6) F#" ^F "5) B" B2 "4) E" E "3) A" A2 "2) D" D "1) G" G2 | "C До мажор" C | "1) F" F2 "2) Bb" _B, "3) Eb" _E2 _"4) Ab" _A, "5) Db"_D2 "6) Gb"_G, "7) Cb"_C2 |]
+T:*
+T: Минорные тональности
+"7) A#m" ^A2 "6) D#m" ^d "5) G#m" ^G2 "4) C#m" ^c "3) F#m" ^F2 "2) Bm" B "1) Em" E2 | "Am Ля минор"A | "1) D" D2 "2) Gm" G "3) Cm" C2 "4) Fm" F "5) Bbm" _B,2 "6) Ebm" _E "7)Abm" _A,2 |
 T:*
 T:C - До мажор (C-dur)
 K:C
+V:1 cleff=treble
 CDEF GABc | cBAG FEDC |]
 T:*
 T:Am - Ля минор (a-moll)
