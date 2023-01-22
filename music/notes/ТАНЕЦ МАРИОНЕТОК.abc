@@ -1,3 +1,4 @@
+var abc=`
 X:1
 Q:"Moderato умеренно" 80
 T:ТАНЕЦ МАРИОНЕТОК
@@ -25,3 +26,4 @@ V:1 cleff=treble
 V:2 cleff=treble
 "_3" "_5" [C3/4E] | [C3/4F] | [C/4FG] z/4 [C/4FG] | "_Da capo al Fine" [C3/4EG] ||
 K:bass
+`

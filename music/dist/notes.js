@@ -172,3 +172,59 @@ main
     }
 
 }
+
+function notesIndex(pathToList) {
+  const scriptList = document.createElement("script");
+  scriptList.src = pathToList;
+  scriptList.async = true;
+  document.head.appendChild(scriptList);
+  scriptList.onload = () => {
+
+    var abcdownload = document.getElementById('abcdownload');
+    abcdownload.style.display="none"
+    var abcopen = document.getElementById('abcopen');
+    abcopen.style.display="none"
+
+    var noteselect = document.createElement('select');
+    noteselect.style.width = "100%";
+    noteselect.style.borderColor = "#f1e8e8";
+    document.body.appendChild(
+      Object.assign(
+        noteselect,
+        { id: "noteselect", size: 10}
+      )
+    );
+    for (var str of afcfilesStr.split(/\r\n|\r|\n/)) {
+      if (!str || /^\s*$/.test(str)) { //isBlank
+
+      } else {
+        noteselect.options[noteselect.options.length]=new Option(str.replace(".abc", ""), str);
+      }
+    }
+    noteselect.addEventListener("change", evt => {
+      var selectedOption = evt.srcElement.options[evt.srcElement.selectedIndex];
+      console.log(selectedOption.value);
+      var jsSrc = "notes/" + selectedOption.value.replace(' ', '%20');
+      const script = document.createElement("script");
+      script.src = jsSrc;
+      script.async = true;
+      document.head.appendChild(script);
+      script.onload = () => {
+        notes(abc);
+        abcdownload.href = jsSrc;
+        abcdownload.style.display="inline";
+        abcopen.style.display="inline";
+        noteselect.style.display="none";
+      };
+    });
+    abcopen.addEventListener("click", evt => {
+      evt.preventDefault();
+      var container = document.getElementsByClassName('container')[0];
+      container.replaceChildren();
+      abcopen.style.display="none";
+      abcdownload.style.display="none";
+      noteselect.style.display="block";
+      noteselect.selectedIndex = -1;
+    });
+  };
+}

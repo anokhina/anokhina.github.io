@@ -1,3 +1,4 @@
+var abc=`
 X:1
 Q:"Moderato умеренно" 80
 T:КОЛОКОЛЬЧИКИ ЗВЕНЯТ
@@ -23,3 +24,4 @@ V:1 cleff=treble
 ( !>!d | !>!e | !>!^f | !>!g) |
 V:2 cleff=bass
 "_* Ped." .[G,/4B,] .[G,/4B,] .[G,/4B,] .[G,/4B,] | "_* Ped." .[G,/4C] .[G,/4C] .[G,/4C] .[G,/4C] | "_* Ped.".[G,/4A,] .[G,/4A,] .[G,/4A,] .[G,/4A,] | "_* Ped.".[G,/4B,] "_Da capo al Fine" .[G,/4B,] .[G,/4B,] .[G,/4B,] |
+`

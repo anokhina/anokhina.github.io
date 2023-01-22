@@ -1,3 +1,4 @@
+var abc=`
 X:1
 Q:"Умеренно" 80
 T:ЭТЮД 
@@ -19,3 +20,4 @@ V:1 cleff=treble
 !f! "^ " !1!!2!!4! [F8GB] | !1!!2!!5! [E8Gc] | !<(! [F6GB] !1!!2!!4![F2GB] !<)! | !1!!2!!5! [E4Gc] [E2Gc] [E2Gc] |!fermata![E2Gc] z2 z4|]
 V:2 cleff=bass
 ("_5"G,,A,,B,,C, "_1"D,"_3"E,F,G,) | ("_5"C,D,E,F, "_1"G,"_3"A,B,C) |  ("_5"G,A,B,C D2) G,2 | "_1""_Ped"C4 "_5"C,2 C,2 |"_""_*"!fermata!C,2 z2 z4 |]
+`

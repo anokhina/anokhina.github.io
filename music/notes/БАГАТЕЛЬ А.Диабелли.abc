@@ -1,3 +1,4 @@
+var abc=`
 X:1
 Q:"Allegro" 1/4=120
 T:БАГАТЕЛЬ
@@ -33,3 +34,4 @@ V:2 cleff=bass
 (F,/8A,/8D/8)|(F,/8A,/8D/8)|(G,/8D/8F/8)|[C/4E/4] z/8:|
 V:1 cleff=treble
 z
+`
