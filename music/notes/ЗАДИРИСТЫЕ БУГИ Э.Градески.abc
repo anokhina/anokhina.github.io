@@ -1,0 +1,45 @@
+var abc=`
+X:1
+Q:"Смело" 120
+T:ЗАДИРИСТЫЕ БУГИ
+C: Э.Градески
+O: 
+W:
+M:C
+L:1/4
+K:C
+V:1 cleff=treble
+!f! z4 | z4 | !1!!5! .!>![CG] [CG] F E | ^D E C2 |
+V:2 cleff=bass
+"_1""_5" !>!.[C,,G,,] [C,,G,,] "_3" ^D,, "_2"E,, | C,, "_2"G,, "_1"A,, G,, |z4 | z4 | 
+V:1 cleff=treble
+!p! z4 | z4 | .!>![CG] [CG] F E | ^D E C2 |
+V:2 cleff=bass
+!>!.[C,,G,,] [C,,G,,] ^D,, E,, | C,, G,, A,, G,, | z4 | z4 |
+V:1 cleff=treble
+!f! z4 | z4 | .!>![Fc] [Fc] _B A | ^G A F2 |
+V:2 cleff=bass
+.!>![F,,C,] [F,,C,] ^G,, A,, | F,, C, D, C,| z4 | z4 |
+V:1 cleff=treble
+!p! z4 | z4 | .!>![CG] [CG] F E | ^D E C2|
+V:2 cleff=bass
+.!>![C,,G,,] [C,,G,,] ^D,, E,, | C,, G,, A,, G,, | z4 | z4 |
+V:1 cleff=treble
+!mf! =D4  | (!4!!<(!^F G D _D  !<)!| C4) | (!4! !<(!_E F C A, !<)!| !f!C2) z2 \\ %comment
+K:cleff=bass
+|
+V:2 cleff=bass
+.!>! [G,,D,] "^cresc." [G,,D,] ^A,, B,, | [G,,3D,] z | .!>![F,,C,] [F,,C,] ^G,, A,, | [F,,3C,] z | .!>![C,,G,,] [C,,G,,] ^D,, E,,|
+V:1 cleff=bass
+"_dim." !1!F,, ^G,, A,, C, | z4 | !1! F, ^G, A, C | z4 \\ %comment
+K:cleff=treble
+|
+V:2 cleff=bass
+z4 | .!>![C,G,] [C,G,] ^D, E, | z4 | \\ %comment
+K:cleff=treble
+.!>![CG] [CG] ^D E |
+V:1 cleff=treble
+!1! F ^G A c | !pp! z2 [b2e'] -| [b2e'] z2 |]
+V:2 cleff=treble
+z4 | z2 "_Ped."[c2g] -| [c2g] z2 |]
+`

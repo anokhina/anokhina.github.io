@@ -1,3 +1,4 @@
+var abc=`
 X:1
 T:Kuntur phawan
 T:(Yaw kuntur)
@@ -8,3 +9,4 @@ K:C
 V:1 cleff=treble
 E/8 [|: A/8^G/8A/8B/8 c/8B/8c/8d/8 | .e/2 g/8g/8 | .e/2 a/8g/8 | (e/2 e/8)e/8d/8c/8 |
 d/16c/16 (A3/8 A/8) z/8 c/4|1 (A/2: A3/8) E/8 :|2 (A/2: A3/8)
+`

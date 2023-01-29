@@ -1,3 +1,55 @@
+function notesPlayer(audioElem, visualObjEl) {
+	if (ABCJS.synth.supportsAudio()) {
+		var synthControl = new ABCJS.synth.SynthController();
+    var CursorControl = function() {};
+    var cursorControl = new CursorControl();
+    var audioParams = { chordsOff: true };
+		synthControl.load(audioElem,
+			cursorControl,
+			{
+				displayLoop: true,
+				displayRestart: true,
+				displayPlay: true,
+				displayProgress: true,
+				displayWarp: true
+			}
+		);
+
+		var createSynth = new ABCJS.synth.CreateSynth();
+		createSynth.init({ visualObj: visualObjEl }).then(function () {
+			synthControl.setTune(visualObjEl, false, audioParams).then(function () {
+				console.log("Audio successfully loaded.")
+			}).catch(function (error) {
+				console.warn("Audio problem:", error);
+			});
+		}).catch(function (error) {
+			console.warn("Audio problem:", error);
+		});
+	}
+}
+
+
+function notefile(pathToList, withAudio) {
+  const scriptList = document.createElement("script");
+  scriptList.src = pathToList;
+  scriptList.async = true;
+  document.head.appendChild(scriptList);
+  scriptList.onload = () => {
+    var visualObj = notesin(abc);
+    if (withAudio) {
+        var div = document.createElement('div');
+        document.querySelector('body').appendChild(div);
+        notesPlayer(div, visualObj[0]);
+    }
+  };
+}
+
+function notesin(abcString) {
+  var div = document.createElement('div');
+  document.querySelector('body').appendChild(div);
+  return ABCJS.renderAbc(div, abcString, {});
+}
+
 function notes(abcString) {
 /*
 <div class="container">
@@ -158,16 +210,20 @@ main
         }
     }
 
+    var pageheader = document.getElementById('pageheader');
     var audioshowcontent = document.getElementById('audioshowcontent');
     var audioshow = document.getElementById('audioshow');
     if (audioshowcontent && audioshow) {
         audioshowcontent.style.display="none";
+        if (pageheader) pageheader.style.display="none";
         audioshow.addEventListener("click", () => {
             if (audioshowcontent.style.display=="none") {
                 audioshowcontent.style.display="block";
-            } else {
+                if (pageheader) pageheader.style.display="block";
+              } else {
                 audioshowcontent.style.display="none";
-            }
+                if (pageheader) pageheader.style.display="none";
+              }
         });
     }
 

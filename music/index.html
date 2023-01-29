@@ -9,13 +9,187 @@
   <script src="dist/abcjs-basic-min.js" type="text/javascript"></script>
   <script src="dist/notes.js" type="text/javascript"></script>
   
+  <script src="../md/marked.min.js"></script>
+  <script src="../md/md.js"></script>
+
+  <style type="text/css">
+    body { 
+      margin: 1em;
+    }
+   </style>
+
 </head>
 <body>
-  <h2>Ноты для фортепиано <a id="abcdownload" target="_blank" href="notes/ВЕСЁЛЫЙ ДЯТЕЛ.abc">(скачать)</a> <a id="abcopen" href="#">(выбрать)</a></h2>
-<script>
-  notesIndex("notes/list.js");
-  </script>
-  <div class="container"></div>
+  <h2 id="pageheader">Ноты в формате ABC</h2>
+
+<script>md(`
+**ABC** -- это язык разметки для нот, который позволяет в любом текстовом редакторе записать ноты, 
+а потом используя специальное программное обеспечение или библиотеки, написанные на _JavaScript_ [отобразить](piano.html) их.
+
+Спецификация языка может быть найдена по ссылке [http://abcnotation.com/wiki/abc:standard:v2.1](http://abcnotation.com/wiki/abc:standard:v2.1)
+`);</script>
+
+<script>notesin(`
+  L:1
+  C D E F G A B c |
+      `);</script>
+  
+<script>md(`
+Записанная на этом языке первая октава, например, будет выглядеть так
+
+<pre>
+L:1
+C D E F G A B |
+</pre>
+
+Здесь <tt>L:1</tt> -- длина ноты.
+
+Каждую ноту можно подписать указав перед ней текст в кавычках.
+`);</script>
+
+<script>notesin(`
+  L:1
+  "C" C "D" D "E" E "F" F "G" G "A" A "B" B|
+      `);</script>
+  
+<script>md(`
+    Тогда запись будет выглядеть так
+
+<pre>
+L:1
+"C" C "D" D "E" E "F" F "G" G "A" A "B" B|
+</pre>
+
+С помощью тега <tt>T:<tt> можно добавить заголовок.
+
+<pre>
+T:Вторая октава
+L:1
+"c" c "d" d "e" e "f" f "g" g "a" a "b" b|
+</pre>
+
+`);</script>
+
+<script>notesin(`
+  T:Вторая октава
+  L:1
+  "c" c "d" d "e" e "f" f "g" g "a" a "b" b |
+      `);</script>
+
+
+<script>md(`
+
+L, T -- это инфирмационные поля(я их буду называть тегами), 
+весь список которых можно нейти [здесь](http://abcnotation.com/wiki/abc:standard:v2.1#information_fields) 
+
+Можно поменять ключ с помощью тега <tt>K: clef=bass</tt>
+
+<pre>
+  T:Малая октава
+L:1
+K: clef=bass
+"C," C, "D," D, "E," E, "F,"F, "G," G, "A," A, "B," B, "C" C |
+</pre>
+`);</script>
+
+<script>notesin(`
+T:Малая октава
+L:1
+K: clef=bass
+"C," C, "D," D, "E," E, "F,"F, "G," G, "A," A, "B," B, "C" C |
+      `);</script>
+
+
+<script>md(`
+Добавим темп <tt>Q:"Andante"</tt> и размер <tt>M:2/4</tt>, и ноты будут не целые, а четверти <tt>d/4</tt> и восьмые <tt>c/8</tt>
+
+  <pre>
+Q:"Andante"
+T:Во поле берёза стояла
+C:русская народная песня
+M:2/4
+L:1
+e/8e/8 e/8e/8 | d/4 c/8c/8 | B/4 A/4 | e/8e/8 g/8e/8 | d/8d/8 c/8c/8 | B/4 A/4 |
+  </pre>
+  `);</script>
+
+<script>notesin(`
+Q:"Andante"
+T:Во поле берёза стояла
+C:русская народная песня
+M:2/4
+L:1
+e/8e/8 e/8e/8 | d/4 c/8c/8 | B/4 A/4 | e/8e/8 g/8e/8 | d/8d/8 c/8c/8 | B/4 A/4 |
+        `);</script>
+
+<script>md(`
+А потом поменяем длину ноты на <tt>L:1/8</tt>. Т.е. любая нота у нас восьмая и четвёртую надо писать как c2. И перепишем
+  
+<pre>
+  Q:"Andante"
+T:Во поле берёза стояла
+C:русская народная песня
+M:2/4
+L:1/8
+ee ee | d2 cc | B2 A2 | ee ge | dd cc | B2 A2 |
+</pre>
+    `);</script>
+  
+  <script>notesin(`
+Q:"Andante"
+T:Во поле берёза стояла
+C:русская народная песня
+M:2/4
+L:1/8
+ee ee | d2 cc | B2 A2 | ee ge | dd cc | B2 A2 |
+            `);</script>
+      
+<script>md(`
+Запишем удлинённую ноту с точкой для длительности ноты <tt>L:1</tt> в данном примере это будет <tt>B3/8</tt>,
+а для длительности <tt>L:1/8</tt> -- <tt>B3</tt>.
+    
+<pre>
+  M:2/4
+  L:1
+  B3/8 c/8
+</pre>
+
+и 
+
+<pre>
+  M:2/4
+  L:1/8
+  B3 c
+</pre>
+
+      `);</script>
+        
+<script>notesin(`
+  M:2/4
+  L:1
+  B3/8 c/8
+              `);</script>
+<script>notesin(`
+  M:2/4
+  L:1/8
+  B3 c
+              `);</script>
+        
+<script>md(`
+В конце произведения поставим <tt>|]</tt>
+      
+<pre>
+Q:"Andante"
+T:Во поле берёза стояла
+C:русская народная песня
+M:2/4
+L:1/8
+ee ee | d2 cc | B2 A2 | ee ge | dd cc | B2 A2 |
+B3 c | d2 cc | B2 A2 | B3 c | d2 cc | B2 A2 |]
+</pre>
+`);</script>
+                  
+<script>notefile("notesf/Во поле берёза стояла.abc", true);</script>
 
 </body>
 </html>
