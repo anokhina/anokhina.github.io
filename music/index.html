@@ -23,8 +23,8 @@
   <h2 id="pageheader">Ноты в формате ABC</h2>
 
 <script>md(`
-**ABC** -- это язык разметки для нот, который позволяет в любом текстовом редакторе записать ноты, 
-а потом используя специальное программное обеспечение или библиотеки, написанные на _JavaScript_ [отобразить](piano.html) их.
+**ABC** — это язык разметки для нот, который позволяет в любом текстовом редакторе записать ноты, 
+а потом используя специальное программное обеспечение или библиотеки, написанные на _JavaScript_ [отобразить](https://editor.drawthedots.com/) их.
 
 Спецификация языка может быть найдена по ссылке [http://abcnotation.com/wiki/abc:standard:v2.1](http://abcnotation.com/wiki/abc:standard:v2.1)
 `);</script>
@@ -42,7 +42,7 @@ L:1
 C D E F G A B |
 </pre>
 
-Здесь <tt>L:1</tt> -- длина ноты.
+Здесь <tt>L:1</tt> — длина ноты.
 
 Каждую ноту можно подписать указав перед ней текст в кавычках.
 `);</script>
@@ -79,7 +79,7 @@ L:1
 
 <script>md(`
 
-L, T -- это информационные поля(я их буду называть тегами), 
+L, T — это информационные поля(я их буду называть тегами), 
 весь список которых можно найти [здесь](http://abcnotation.com/wiki/abc:standard:v2.1#information_fields) 
 
 Можно поменять ключ с помощью тега <tt>K: clef=bass</tt>
@@ -146,7 +146,7 @@ ee ee | d2 cc | B2 A2 | ee ge | dd cc | B2 A2 |
       
 <script>md(`
 Запишем удлинённую ноту с точкой для длительности ноты <tt>L:1</tt> в данном примере это будет <tt>B3/8</tt>,
-а для длительности <tt>L:1/8</tt> -- <tt>B3</tt>.
+а для длительности <tt>L:1/8</tt> — <tt>B3</tt>.
     
 <pre>
   M:2/4
@@ -188,7 +188,120 @@ ee ee | d2 cc | B2 A2 | ee ge | dd cc | B2 A2 |
 B3 c | d2 cc | B2 A2 | B3 c | d2 cc | B2 A2 |]
 </pre>
 `);</script>
-                  
+
+<script>notesin(`
+Q:"Andante"
+T:Во поле берёза стояла
+C:русская народная песня
+M:2/4
+L:1/8
+K:Am
+ee ee | d2 cc | B2 A2 | ee ge | dd cc | B2 A2 |
+B3 c | d2 cc | B2 A2 | B3 c | d2 cc | B2 A2 |]
+              `);</script>
+
+<script>md(`
+  Указываем громкость <tt>!mp!</tt>, <tt>!mf!</tt>, <tt>!p!</tt> и <tt>!pp!</tt>
+        
+  <pre>
+!mp! ee ee | d2 cc | B2 A2 | ee !mf! ge | dd cc | B2 A2 |
+!p! B3 c | d2 cc | B2 A2 | B3 c | d2 cc | B2 !pp! A2 |]
+  </pre>
+  `);</script>
+
+<script>notesin(`
+X:1
+Q:"Andante"
+T:Во поле берёза стояла
+C:русская народная песня
+M:2/4
+L:1/8
+K:Am
+!mp! ee ee | d2 cc | B2 A2 | ee !mf! ge | dd cc | B2 A2 |
+!p! B3 c | d2 cc | B2 A2 | B3 c | d2 cc | B2 !pp! A2 |]
+                `);</script>
+
+<script>md(`
+  Изменение звука 
+  
+<pre>
+  !crescendo(! !crescendo)! 
+  !<(! !<)!
+  !diminuendo(! !diminuendo)!
+  !>(! !>)!
+</pre>
+
+  <pre>
+!mp! ee ee | d2 cc | B2 A2 | !<(! ee !<)!!mf! ge | !>(!dd cc | B2 A2 !>)!|
+!p! B3 c | d2 cc | B2 A2 | B3 c | d2 cc | !>(!B2!>)! !pp! A2 |]
+  </pre>
+  `);</script>
+
+<script>notesin(`
+  M:2/4
+  L:1/8
+  K:Am
+!mp! ee ee | d2 cc | B2 A2 | !<(! ee !<)!!mf! ge | !>(!dd cc | B2 A2 !>)!|
+!p! B3 c | d2 cc | B2 A2 | B3 c | d2 cc | !>(!B2!>)! !pp! A2 |]
+`);</script>
+
+<script>md(`
+  Пометки — [декорации](http://abcnotation.com/wiki/abc:standard:v2.1#decorations), которые указывают, например, где набирать воздух <tt>!upbow!</tt>
+
+  <pre>
+!mp! ee ee | d2 cc | B2 A2 !upbow! | !<(! ee !<)!!mf! ge | !>(!dd cc | B2 A2 !>)! !upbow! |
+!p! B3 c | d2 cc | B2 A2 !upbow!| B3 c | d2 cc | !>(!B2!>)! !pp! A2 |]
+  </pre>
+  `);</script>
+
+<script>notesin(`
+  M:2/4
+  L:1/8
+  K:Am
+!mp! ee ee | d2 cc | B2 A2 !upbow! | !<(! ee !<)!!mf! ge | !>(!dd cc | B2 A2 !>)! !upbow! |
+!p! B3 c | d2 cc | B2 A2 !upbow!| B3 c | d2 cc | !>(!B2!>)! !pp! A2 |]
+`);</script>
+
+<script>md(`
+  К песне можно добавлять [слова](http://abcnotation.com/wiki/abc:standard:v2.1#alignment).
+
+  <pre>
+C D E z F|
+w: до ре ми * фа
+  </pre>
+  `);</script>
+
+<script>notesin(`
+  L:1
+C D E z F|
+w: до ре ми * фа
+`);</script>
+
+<script>md(`
+И тогда ноты для берёзки будут выглядеть так
+
+  <pre>
+!mp! ee ee | d2 cc | B2 A2 !upbow! | !<(! ee !<)!!mf! ge | !>(!dd cc | B2 A2 !>)! !upbow! |
+w: Во по-ле бе-рёз-ка сто-я-ла Во по-ле куд-ря-ва-я сто-я ла
+!p! B3 c | d2 cc | B2 A2 !upbow!| B3 c | d2 cc | !>(!B2!>)! !pp! A2 |]
+w: Лю-ли лю-ли сто-я-ла Лю-ли лю-ли сто-я-ла
+  </pre>
+
+А декорации будут размещены сверху.
+  `);</script>
+
+<script>notesin(`
+  M:2/4
+  L:1/8
+  K:Am
+!mp! ee ee | d2 cc | B2 A2 !upbow! | !<(! ee !<)!!mf! ge | !>(!dd cc | B2 A2 !>)! !upbow! |
+w: Во по-ле бе-рёз-ка сто-я-ла Во по-ле куд-ря-ва-я сто-я ла
+!p! B3 c | d2 cc | B2 A2 !upbow!| B3 c | d2 cc | !>(!B2!>)! !pp! A2 |]
+w: Лю-ли лю-ли сто-я-ла Лю-ли лю-ли сто-я-ла
+`);</script>
+
+Итоговый файл:
+
 <script>notefile("notesf/Во поле берёза стояла.abc", true);</script>
 
 </body>

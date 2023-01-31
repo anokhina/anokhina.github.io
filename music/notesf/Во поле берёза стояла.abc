@@ -1,11 +1,16 @@
 var abc=`
+I:abc-charset utf-8
 X:1
 Q:"Andante"
 T:Во поле берёза стояла
 C:русская народная песня
 M:2/4
 L:1/8
-ee ee | d2 cc | B2 A2 | ee ge | dd cc | B2 A2 |
-B3 c | d2 cc | B2 A2 | B3 c | d2 cc | B2 A2 |]
+K:Am
+!mp! ee ee | d2 cc | B2 A2 !upbow! | !<(! ee !<)!!mf! ge | !>(!dd cc | B2 A2 !>)! !upbow! |
+w: Во по-ле бе-рёз-ка сто-я-ла Во по-ле куд-ря-ва-я сто-я ла
+T: «»
+!_p! B3 c | d2 cc | B2 A2 !upbow!| B3 c | d2 cc | !>(!B2!>)! !pp! A2 |]
+w: Лю-ли лю-ли сто-я-ла Лю-ли лю-ли сто-я-ла
 `
 

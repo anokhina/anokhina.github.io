@@ -229,7 +229,8 @@ main
 
 }
 
-function notesIndex(pathToList) {
+function notesIndex(pathToList, prefix) {
+  const notesDir = (prefix) ? prefix : "notes/";
   const scriptList = document.createElement("script");
   scriptList.src = pathToList;
   scriptList.async = true;
@@ -260,7 +261,7 @@ function notesIndex(pathToList) {
     noteselect.addEventListener("change", evt => {
       var selectedOption = evt.srcElement.options[evt.srcElement.selectedIndex];
       console.log(selectedOption.value);
-      var jsSrc = "notes/" + selectedOption.value.replace(' ', '%20');
+      var jsSrc = notesDir + selectedOption.value.replace(' ', '%20');
       const script = document.createElement("script");
       script.src = jsSrc;
       script.async = true;
