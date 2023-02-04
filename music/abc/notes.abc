@@ -1,0 +1,19 @@
+abc=`
+X:1
+T:Ноты
+M:4/4
+L:1/4
+[E4F]| [B4c] |]
+T: Знаки
+" __A"__A " _A"_A "=A"=A " ^A"^A " ^^A"^^A |]
+T: Скрипичный ключ
+T: cleff=treble
+"c" c "d" d "e" e "f" f "g" g "a" a "b" b "c'" c' |]
+"C" C "D" D "E" E "F" F "G" G "A" A "B" B "c" c |]
+T: Басовый ключ
+T: cleff=bass
+V:1 cleff=bass
+"C," C, "D," D, "E," E, "F,"F, "G," G, "A," A, "B," B, "C" C|]
+"C,," C,, "D,," D,, "E,," E,, "F,,"F,, "G,," G,, "A,," A,, "B,," B,, "C," C,|]
+z2
+`

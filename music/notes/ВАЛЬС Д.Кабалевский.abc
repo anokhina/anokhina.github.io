@@ -9,23 +9,23 @@ M:3/4
 L:1/4
 K:Dm
 V:1 cleff=treble
-!p! !1! ( A | !2! d2 A | !4!f2 A | !5!g !4!f e | d2) (A | c2 A | e2 A |
+!p! !1! ( A | !2! d2 A | !4!f2 A | !5!a !4!f e | d2) (A | c2 A | e2 A |
 V:2 cleff=treble
 z | "_1""_3" [DF] [DF] z | [DF] [DF] z | [DF] [DF] z | [DF] [DF] z | "_2""_4" [CE] [CE] z | [CE] [CE] z |
 V:1 cleff=treble
 a3 | !2! e2) !2! (e | !1! d2 e | d2 ) (a | !1!c2 d | c2 ) (a | !1!=B2 c |
 V:2 cleff=treble
-[CE] [CE] z | [CE] [CE] z | "_1""_3"[^FA] [^FA] z | [^FA] [^FA] z | [=FA] [FA] z | [FA] [FA] z | "_2""_4"[^D^G] [DG] z |
+[CE] [CE] z | [CE] [CE] z | "_1""_3"[^FA] "(#)"[FA] z | [^FA] "(#)"[FA] z | [=FA] [FA] z | [FA] [FA] z | "_2""_4"[^D^G] "(#)"[DG] z |
 V:1 cleff=treble
 =B2 a| !1!A2) (=B | A =B ^c | !4! d2 A | !4!f2 A | !5!a f  e |
 V:2 cleff=treble
 [E^G] [EG] z | "_1""_5" [A,E] [A,E] z | [A,E] [A,E] z | "_1""_3"[DF] [DF] z | [DF] [DF] z | [DF] [DF] z | 
 V:1 cleff=treble
- d2) (!crescendo(! c| !2!e2 c !crescendo)! | !3! g2 c | !mf! c'3 | g2 ) !2! (g | !diminuendo(! !1!f2 g !diminuendo)!  | g2) (c' |
+ d2) (!crescendo(! c| !2!e2 c !crescendo)! | !3! g2 c | !mf! c'3 | g2 ) !2! (g | !diminuendo(! !1!f2 g !diminuendo)!  | f2) (c' |
 V:2 cleff=treble
 [DF] [DF] z | "_2""_4" [CE] [CE] z | [CE] [CE] z | [CE] [CE] z | [CE] [CE] z | "_1""_3" [Ac] [Ac] z | [Ac] [Ac] z |
 V:1 cleff=treble
-!1! e2 f | e2 ) (b | !1! d2 !3! e | !2! ^c2 !5!a | !p! !1! (d3| d))  z |]
+!1! e2 f | e2 ) (b | !1! d2 !3! e | !2! ^c2 !5!a | !p! !1! d3 -| d)  z |]
 V:2 cleff=treble
-"_2""_4" [GB] [GB] z | [GB] [GB] z | "_1""_3" [FA] [FA] z | !2!!4! [EG] [EG] z | "_1""_3""_5" [DFA] [DFA] z | [DFA] z |]
+"_2""_4" [GB] [GB] z | [GB] [GB] z | "_1""_3" [FA] [FA] z | !2!!4! [E^G] "^(#)"[EG] z | "_1""_3""_5" [DFA] [DFA] z | [DFA] z |]
 `
